@@ -1,0 +1,70 @@
+﻿@model JosephProject1.App.Models.LocationViewModel
+
+@{
+    ViewData["Title"] = "OrdersDetails";
+}
+
+<h1>Order Details:</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sales)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().LocationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().Total)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.ActionLink("Product Details", "ProductDetails", new { id = item.LocationId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to location list</a>
+</div>

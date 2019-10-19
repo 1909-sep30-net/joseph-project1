@@ -32,16 +32,65 @@ namespace JosephProject1.App.Controllers
                 Id = c.Id,
                 FirstName = c.FirstName,
                 LastName = c.LastName,
-                TotalPuchases = c.TotalPurchases,
+                TotalPurchases = c.TotalPurchases,
             });
 
             return View(modelView);
         }
 
         // GET: Customer/Details/5
-        public ActionResult Details(int id)
+        public ActionResult OrdersDetails(int id)
         {
-            return View();
+            IEnumerable<Customer> customers = _data.GetCustomers();
+
+            Customer customer = customers.Where(c => c.Id == id).FirstOrDefault();
+
+            var modelView = new CustomerViewModel
+            {
+                Id = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                TotalPurchases = customer.TotalPurchases,
+                Orders = customer.Orders.Select(o => new OrdersViewModel
+                {
+                    Id = o.Id,
+                    LocationId = o.LocationId,
+                    CustomerId = o.CustomerId,
+                    Total = o.Total,
+
+                }),
+            };
+
+            return View(modelView);
+        }
+
+        // GET: Customer/Details/5
+        public ActionResult ProductDetails(int id)
+        {
+            IEnumerable<Customer> customers = _data.GetCustomers();
+
+            Customer customer = customers.Where(c => c.Id == id).FirstOrDefault();
+            var modelView = new CustomerViewModel
+            {
+                Id = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Orders = customer.Orders.Select(o => new OrdersViewModel
+                {
+                    Id = o.Id,
+                    LocationId = o.LocationId,
+                    CustomerId = o.CustomerId,
+                    Total = o.Total,
+                    ProductOrders = o.ProductOrders.Select(po => new ProductOrderViewModel
+                    {
+                        Id = po.Id,
+                        Name = po.Product.Name,
+                        Quantity = po.Quantity,
+                    }),
+                }),
+            };
+
+            return View(modelView);
         }
 
         // GET: Customer/Create

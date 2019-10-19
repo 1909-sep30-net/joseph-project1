@@ -2,9 +2,9 @@
 
 namespace JosephProject1.App.Models
 {
-    public class ProductViewModel
+    public class InventoryViewModel
     {
-        public int Id { get; set; }
+        public int Quantity { get; set; }
         public string Name { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:c}")]

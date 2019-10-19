@@ -37,10 +37,53 @@ namespace JosephProject1.App.Controllers
             return View(modelView);
         }
 
-        // GET: Location/Details/5
-        public ActionResult Details(int id)
+        // GET: Location/Inventor Details
+        public ActionResult InventoryDetails(int id)
         {
-            return View();
+            IEnumerable<Location> locations = _data.GetLocations();
+            Location location = locations.Where(l => l.Id == id).FirstOrDefault();
+
+            var modelView = new LocationViewModel
+            {
+                Id = location.Id,
+                Name = location.Name,
+                Sales = location.Sales,
+                Inventory = location.Inventory.Select(pi => new InventoryViewModel
+                {
+                    Quantity = pi.Quantity,
+                    Name = pi.Product.Name,
+                    Price = pi.Product.Price,
+                }),
+
+            };
+
+            return View(modelView);
+        }
+
+
+        // GET: Location/Inventor Details
+        public ActionResult OrdersDetails(int id)
+        {
+            IEnumerable<Location> locations = _data.GetLocations();
+
+            Location location = locations.Where(l => l.Id == id).FirstOrDefault();
+
+            var modelView = new LocationViewModel
+            {
+                Id = location.Id,
+                Name = location.Name,
+                Sales = location.Sales,
+                Orders = location.Orders.Select(o => new OrdersViewModel
+                {
+                    Id = o.Id,
+                    LocationId = o.LocationId,
+                    CustomerId = o.CustomerId,
+                    Total = o.Total,
+                }),
+
+            };
+
+            return View(modelView);
         }
 
         // GET: Location/Create

@@ -39,7 +39,10 @@ namespace Project1.BusinessLogic
         /// <param name="name">name of the product to search for</param>
         /// <param name="id">id of the product to search for</param>
         /// <returns>list of products</returns>
+
         public IEnumerable<Product> GetProducts(string name = null, int? id = null);
+
+        public Product GetProductById(int id);
 
         /// <summary>
         /// adds a new Customer to the data base

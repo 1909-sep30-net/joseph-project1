@@ -60,6 +60,11 @@ namespace Project1.DataAccess
             return items.Select(Mapper.MapCustomerToOrders);
         }
 
+        public Customer GetCustomerById(int id)
+        {
+            return Mapper.MapCustomerToOrders(_context.Customers.Find(id));
+        }
+
         /// <summary>
         /// gets a list of all locations in the database
         /// each location includes invintory and order history
@@ -82,7 +87,7 @@ namespace Project1.DataAccess
             if (id != null)
                 items = items.Where(i => i.Id == id);
 
-            return items.Select(Mapper.MapLocationsToInvetoryToOrders);
+            return items.Select(Mapper.MapLocationToInvetoryToOrders);
         }
 
         /// <summary>
@@ -102,6 +107,11 @@ namespace Project1.DataAccess
                 items = items.Where(p => p.Id == id);
 
             return items.Select(Mapper.MapProduct);
+        }
+
+        public Product GetProductById(int id)
+        {
+            return Mapper.MapProduct(_context.Products.Find(id));
         }
 
         /// <summary>
@@ -136,7 +146,7 @@ namespace Project1.DataAccess
                 throw new ArgumentException("Location allready exists in database");
             }
 
-            Locations entity = Mapper.MapLocationsToInvetoryToOrders(location);
+            Locations entity = Mapper.MapLocationToInvetoryToOrders(location);
             _context.Add(entity);
         }
 
@@ -212,7 +222,7 @@ namespace Project1.DataAccess
         public void UpdateLocation(Location location)
         {
             Locations currentEntity = _context.Locations.Find(location.Id);
-            Locations newEntity = Mapper.MapLocationsToInvetoryToOrders(location);
+            Locations newEntity = Mapper.MapLocationToInvetoryToOrders(location);
 
             Log.Information("Updated location {Name}", location.Name);
             _context.Entry(currentEntity).CurrentValues.SetValues(newEntity);

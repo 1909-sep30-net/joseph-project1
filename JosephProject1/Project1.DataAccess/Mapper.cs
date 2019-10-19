@@ -50,7 +50,7 @@ namespace Project1.DataAccess
         /// </summary>
         /// <param name="location">location entity to be converted</param>
         /// <returns>location object</returns>
-        public static Location MapLocationsToInvetoryToOrders(Entities.Locations location)
+        public static Location MapLocationToInvetoryToOrders(Entities.Locations location)
         {
             return new Location
             {
@@ -67,7 +67,7 @@ namespace Project1.DataAccess
         /// </summary>
         /// <param name="location">location object to be converted</param>
         /// <returns>location entity</returns>
-        public static Entities.Locations MapLocationsToInvetoryToOrders(Location location)
+        public static Entities.Locations MapLocationToInvetoryToOrders(Location location)
         {
             return new Entities.Locations
             {
