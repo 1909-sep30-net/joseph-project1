@@ -6,9 +6,6 @@
 
 <h1>Locations</h1>
 
-<p>
-    <a asp-action="Create">Create a new location</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -38,8 +35,10 @@
                     @String.Format("{0:c}", item.Sales)
                 </td>
                 <td>
+                    @Html.ActionLink("Place Order", "PlaceOrder", new { id = item.Id }) |
                     @Html.ActionLink("Inventory Details", "InventoryDetails", new { id = item.Id }) |
-                    @Html.ActionLink("Orders Details", "OrdersDetails", new { id = item.Id })
+                    @Html.ActionLink("Orders Details", "OrdersDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }

@@ -58,11 +58,5 @@ namespace Project1.BusinessLogic
                 _quantity = value;
             }
         }
-
-        decimal Price
-        {
-            get => Product.Price * Quantity;
-        }
-
     }
 }

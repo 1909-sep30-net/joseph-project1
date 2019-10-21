@@ -2,18 +2,23 @@
 
 namespace JosephProject1.App.Models
 {
-    public class ProductViewModel
+    public class ProductInventoryViewModel
     {
-        [Display(Name = "Product Id")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Product name is required")]
+        [Display(Name = "Product Id")]
+        public int ProductId { get; set; }
+
         [Display(Name = "Product Name")]
         public string Name { get; set; }
 
-        [Range(0.0, 50000)]
-        [Required(ErrorMessage = "Product Price is required")]
+
         [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal Price { get; set; }
+
+        [Range(0, int.MaxValue)]
+        public int Quantity { get; set; }
+
+        public int MaxQuantity { get; set; }
     }
 }

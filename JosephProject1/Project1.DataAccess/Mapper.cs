@@ -83,9 +83,9 @@ namespace Project1.DataAccess
         /// </summary>
         /// <param name="product">production entery to be converted</param>
         /// <returns>production object</returns>
-        public static ProductInventory MapProductInventory(Entities.ProductInventory productInventory)
+        public static BusinessLogic.ProductInventory MapProductInventory(Entities.ProductInventory productInventory)
         {
-            return new ProductInventory
+            return new BusinessLogic.ProductInventory
             {
                 Id = productInventory.Id,
                 LocationId = productInventory.LocationId,

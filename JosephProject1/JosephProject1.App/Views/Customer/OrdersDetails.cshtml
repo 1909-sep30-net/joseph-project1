@@ -58,9 +58,14 @@
                     @Html.DisplayFor(modelItem => item.Total)
                 </td>
                 <td>
-                    @Html.ActionLink("Product Details", "ProductDetails", new { id = item.CustomerId })
+                    @Html.ActionLink("Product Details", "ProductDetails", new { id = item.Id })
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+<div>
+    <a asp-action="Index">Back to customer list</a>
+</div>

@@ -5,6 +5,7 @@ namespace JosephProject1.App.Models
 {
     public class OrdersViewModel
     {
+        [Display(Name = "Order Id")]
         public int Id { get; set; }
 
         [Display(Name = "Location Id")]

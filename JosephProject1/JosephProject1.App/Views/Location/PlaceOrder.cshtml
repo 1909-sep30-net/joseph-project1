@@ -1,0 +1,51 @@
+﻿@model JosephProject1.App.Models.OrderBasketViewModel
+
+@{
+    ViewData["Title"] = "PlaceOrder";
+}
+
+<p>@ViewBag.Error</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PlaceOrder">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+
+                <input type='hidden' asp-for="LocationId" value='@Model.LocationId' />
+
+                <label asp-for="CustomerId" class="control-label"></label>
+                <select asp-for="CustomerId">
+                    @foreach (var item in Model.CustomersInfo)
+                    {
+                        <option value="@item.Id">@item.FullName</option>
+                    }
+                </select>
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
+
+            </div>
+            @for (int i = 0; i < Model.OrderInfo.Count; i++)
+            {
+                <input type='hidden' asp-for="OrderInfo[i].Id" value='@Model.OrderInfo[i].Id' />
+                <input type='hidden' asp-for="OrderInfo[i].ProductId" value='@Model.OrderInfo[i].ProductId' />
+                <input type='hidden' asp-for="OrderInfo[i].Name" value='@Model.OrderInfo[i].Name' />
+                <input type='hidden' asp-for="OrderInfo[i].Price" value='@Model.OrderInfo[i].Price' />
+
+                <p>
+                    @Html.DisplayFor(modelItem => Model.OrderInfo[i].Name)
+                    <label>@Html.DisplayFor(modelItem => Model.OrderInfo[i].Price)</label>
+                    <label>@Html.DisplayFor(modelItem => Model.OrderInfo[i].MaxQuantity)</label>
+                    <label>
+                        <label asp-for="OrderInfo[i].Quantity" class="control-label" ></label>
+                        <input asp-for="OrderInfo[i].Quantity" class="form-control" min="0" max="@Model.OrderInfo[i].MaxQuantity"/>
+                        <span asp-validation-for="OrderInfo[i].Quantity" class="text-danger"></span>
+                    </label>
+                </p>
+            }
+            <div class="form-group">
+                <input type="submit" value="PlaceOrder" class="btn btn-primary"
+                       asp-controller="Location" asp-action="PlaceOrder" />
+            </div>
+        </form>
+    </div>
+</div>

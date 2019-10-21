@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Project1.BusinessLogic;
 using Project1.DataAccess;
 using Project1.DataAccess.Entities;
-
+using Serilog;
 using JosephProject1.App.Models;
 
 namespace JosephProject1.App.Controllers
@@ -41,9 +41,7 @@ namespace JosephProject1.App.Controllers
         // GET: Customer/Details/5
         public ActionResult OrdersDetails(int id)
         {
-            IEnumerable<Customer> customers = _data.GetCustomers();
-
-            Customer customer = customers.Where(c => c.Id == id).FirstOrDefault();
+            Customer customer = _data.GetCustomers(id: id).First();
 
             var modelView = new CustomerViewModel
             {
@@ -57,7 +55,6 @@ namespace JosephProject1.App.Controllers
                     LocationId = o.LocationId,
                     CustomerId = o.CustomerId,
                     Total = o.Total,
-
                 }),
             };
 
@@ -67,28 +64,23 @@ namespace JosephProject1.App.Controllers
         // GET: Customer/Details/5
         public ActionResult ProductDetails(int id)
         {
-            IEnumerable<Customer> customers = _data.GetCustomers();
+            Order order = _data.GetOrderById(id);
 
-            Customer customer = customers.Where(c => c.Id == id).FirstOrDefault();
-            var modelView = new CustomerViewModel
+            var modelView = new OrdersViewModel
             {
-                Id = customer.Id,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                Orders = customer.Orders.Select(o => new OrdersViewModel
+                Id = order.Id,
+                LocationId = order.LocationId,
+                CustomerId = order.CustomerId,
+                Total = order.Total,
+                ProductOrders = order.ProductOrders.Select(po => new ProductOrderViewModel
                 {
-                    Id = o.Id,
-                    LocationId = o.LocationId,
-                    CustomerId = o.CustomerId,
-                    Total = o.Total,
-                    ProductOrders = o.ProductOrders.Select(po => new ProductOrderViewModel
-                    {
-                        Id = po.Id,
-                        Name = po.Product.Name,
-                        Quantity = po.Quantity,
-                    }),
+                    Id = po.Product.Id,
+                    Name = po.Product.Name,
+                    Quantity = po.Quantity,
+                    Total = po.Quantity * po.Product.Price,
                 }),
             };
+
 
             return View(modelView);
         }
@@ -96,30 +88,62 @@ namespace JosephProject1.App.Controllers
         // GET: Customer/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
         // POST: Customer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CustomerViewModel viewModel)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    Customer customer = new Customer
+                    {
+                        FirstName = viewModel.FirstName,
+                        LastName = viewModel.LastName,
+                    };
 
+                    _data.AddCustomer(customer);
+                    _data.Save();
+                }
+
+                Log.Information("Customer {FullName} added", viewModel.FullName);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(InvalidOperationException ex)
             {
-                return View();
+                Log.Information("Customer {FullName} added failed: {Message}", viewModel.FullName, ex.Message);
+                return View(viewModel);
+            }
+            catch (ArgumentException ex)
+            {
+                Log.Information("Customer {FullName} added failed: {Message}", viewModel.FullName, ex.Message);
+                ViewBag.Error = "Error: First or last name can not be empty";
+                if (viewModel.FirstName == null)
+                    ModelState.AddModelError("FirstName", ex.Message);
+                else
+                    ModelState.AddModelError("LastName", ex.Message);
+
+                return View(viewModel);
             }
         }
 
         // GET: Customer/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Customer customer = _data.GetCustomerById(id);
+
+            var viewModel = new CustomerViewModel
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+            };
+
+            return View(viewModel);
         }
 
         // POST: Customer/Edit/5
@@ -129,12 +153,20 @@ namespace JosephProject1.App.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                Customer customer = _data.GetCustomerById(id);
 
+                customer.FirstName = collection["FirstName"];
+                customer.LastName = collection["LastName"];
+
+                _data.UpdateCustomer(customer);
+                _data.Save();
+
+                Log.Information("Customer id {id} edited", id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                Log.Information("Customer id {id} added failed", id);
                 return View();
             }
         }
@@ -142,7 +174,17 @@ namespace JosephProject1.App.Controllers
         // GET: Customer/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Customer customer = _data.GetCustomerById(id);
+
+            var viewModel = new CustomerViewModel
+            {
+                Id = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                TotalPurchases = customer.TotalPurchases,
+            };
+
+            return View(viewModel);
         }
 
         // POST: Customer/Delete/5
@@ -152,12 +194,21 @@ namespace JosephProject1.App.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                _data.DeleteCustomerById(id);
+                _data.Save();
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (InvalidOperationException ex)
             {
+                Log.Warning("Delete customer Error: {Message}", ex.Message);
+                ViewBag.Error = "Error: " + ex.Message;
+                return View();
+            }
+            catch (ArgumentException ex)
+            {
+                Log.Warning("Delete customer Error: {Message}", ex.Message);
+                ViewBag.Error = "Error: " + ex.Message;
                 return View();
             }
         }

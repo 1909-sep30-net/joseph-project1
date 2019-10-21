@@ -36,7 +36,7 @@ namespace Project1.BusinessLogic
             get => _firstName;
             set
             {
-                if (value == string.Empty)
+                if (value == null || value == string.Empty)
                     throw new ArgumentException("First name cannot be empty", nameof(value));
 
                 if (value.Length > 25)
@@ -55,7 +55,7 @@ namespace Project1.BusinessLogic
             get => _lastName;
             set
             {
-                if (value == string.Empty)
+                if (value == null || value == string.Empty)
                     throw new ArgumentException("Last name cannot be empty", nameof(value));
 
                 if (value.Length > 25)

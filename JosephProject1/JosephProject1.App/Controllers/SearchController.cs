@@ -8,82 +8,78 @@ using Microsoft.AspNetCore.Mvc;
 using Project1.BusinessLogic;
 using Project1.DataAccess;
 using Project1.DataAccess.Entities;
-using Serilog;
-
 using JosephProject1.App.Models;
 
 namespace JosephProject1.App.Controllers
 {
-    public class ProductController : Controller
+    public class SearchController : Controller
     {
         private readonly IDataAccess _data;
 
-        public ProductController(IDataAccess data)
+        public SearchController(IDataAccess data)
         {
             _data = data;
         }
 
-        // GET: Product
+        // GET: Search
         public ActionResult Index()
         {
-            IEnumerable<Product> products = _data.GetProducts();
-
-            var modelView = products.Select(p => new ProductViewModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-            });
-
-            return View(modelView);
+            var viewModel = new SearchCustomer();
+            return View(viewModel);
         }
 
-        // GET: Product/Details/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(SearchCustomer viewModel)
+        {
+            IEnumerable<Customer> customers = _data.GetCustomers(viewModel.FirstName, viewModel.LastName, viewModel.Id);
+
+            viewModel.customers = customers.Select(c => new CustomerInfoViewModel
+            {
+                Id = c.Id,
+                FirstName = c.FirstName,
+                LastName = c.LastName,
+            });
+
+            return View(viewModel);
+        }
+
+        // GET: Search/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Product/Create
+        // GET: Search/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Product/Create
+        // POST: Search/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProductViewModel viewModel)
+        public ActionResult Create(IFormCollection collection)
         {
             try
             {
-                Product product = new Product
-                {
-                    Id = 0,
-                    Name = viewModel.Name,
-                    Price = viewModel.Price,
-                };
+                // TODO: Add insert logic here
 
-                _data.AddProduct(product);
-                _data.Save();
-
-                Log.Information("Product {Name} added", viewModel.Name);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                Log.Warning("Product {Name} failed", viewModel.Name);
                 return View();
             }
         }
 
-        // GET: Product/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Search/Edit/5
+        public ActionResult Search(int id)
         {
             return View();
         }
 
-        // POST: Product/Edit/5
+        // POST: Search/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -100,13 +96,13 @@ namespace JosephProject1.App.Controllers
             }
         }
 
-        // GET: Product/Delete/5
+        // GET: Search/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Product/Delete/5
+        // POST: Search/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

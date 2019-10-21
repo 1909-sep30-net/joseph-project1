@@ -1,14 +1,11 @@
-﻿@model JosephProject1.App.Models.LocationViewModel
+﻿@model JosephProject1.App.Models.OrdersViewModel
 
 @{
-    ViewData["Title"] = "InventoryDetails";
+    ViewData["Title"] = "Product Details";
 }
 
-<h1>Inventory Details:</h1>
+<h1>Product Details</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -16,10 +13,13 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.LocationId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sales)
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
             </th>
             <th></th>
         </tr>
@@ -27,22 +27,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Inventory.First().Id)
+                @Html.DisplayNameFor(model => model.ProductOrders.First().Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Inventory.First().Name)
+                @Html.DisplayNameFor(model => model.ProductOrders.First().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Inventory.First().Price)
+                @Html.DisplayNameFor(model => model.ProductOrders.First().Quantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Inventory.First().Quantity)
+                @Html.DisplayNameFor(model => model.ProductOrders.First().Total)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Inventory)
+        @foreach (var item in Model.ProductOrders)
         {
             <tr>
                 <td>
@@ -52,15 +52,16 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
+                    @Html.DisplayFor(modelItem => item.Total)
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
 
 <div>
     <a asp-action="Index">Back to location list</a>

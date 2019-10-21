@@ -20,12 +20,12 @@ namespace JosephProject1.App
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.Console()
+                .WriteTo.File("../../../project1LogFile.txt")
                 .CreateLogger();
 
             try
             {
-                Log.Information("Starting host");
+                Log.Information("****** APPLICATION STRAT ******");
                 CreateHostBuilder(args).Build().Run();
                 return;
             }

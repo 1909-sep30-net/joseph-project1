@@ -50,10 +50,10 @@ CREATE TABLE dbo.ProductInventory
 
 -- select * from Products
 -- select * from Orders
--- select * from ProductOrder
+-- select * from ProductOrdered
 -- select * from ProductInventory
 -- select * From dbo.Locations
--- select *
+-- select * from dbo.Customers
 INSERT INTO dbo.Locations VALUES ('Location1');
 INSERT INTO dbo.Locations VALUES ('Location2');
 INSERT INTO dbo.Locations VALUES ('Location3');
