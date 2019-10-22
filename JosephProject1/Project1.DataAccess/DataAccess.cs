@@ -33,6 +33,12 @@ namespace Project1.DataAccess
         /// <param name="customer">Customer object to add to the database</param>
         public void AddCustomer(Customer customer)
         {
+            IEnumerable<Customer> c = GetCustomers(firstName: customer.FirstName, lastName: customer.LastName);
+            if (c.Count() != 0)
+            {
+                throw new ArgumentException("Customer allready exists in database");
+            }
+
             if (customer.Id != 0)
             {
                 Log.Warning("Customer allready exist in database allreay exists", customer.Id);

@@ -122,7 +122,7 @@ namespace JosephProject1.App.Controllers
             catch (ArgumentException ex)
             {
                 Log.Information("Customer {FullName} added failed: {Message}", viewModel.FullName, ex.Message);
-                ViewBag.Error = "Error: First or last name can not be empty";
+                //ViewBag.Error = "Error: First or last name can not be empty";
                 if (viewModel.FirstName == null)
                     ModelState.AddModelError("FirstName", ex.Message);
                 else
