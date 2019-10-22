@@ -19,9 +19,9 @@ a {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
@@ -59,17 +59,29 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    /*
+        background-color: slategrey;
+    */
+    background-image: url(https://media.giphy.com/media/SVgCHJ2n35EA6XFPpO/giphy.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+    background-position:center;
 }
 
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: blanchedalmond;
+}
+
+/* my stuff added here*/
 input:invalid {
     border: 2px dashed red;
 }
@@ -77,3 +89,27 @@ input:invalid {
 input:valid {
     border: 2px solid black;
 }
+
+.container {
+    background-color: antiquewhite;
+}
+
+tr {
+    background-color: steelblue;
+}
+
+a {
+    color: tomato
+}
+
+    a:active {
+        color: tomato
+    }
+
+    a:link {
+        color: tomato
+    }
+
+    a:visited {
+        color: tomato
+    }

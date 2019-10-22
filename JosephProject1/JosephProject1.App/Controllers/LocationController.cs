@@ -263,7 +263,14 @@ namespace JosephProject1.App.Controllers
             Location location = _data.GetLocationById(viewModel.LocationId);
             Customer customer = _data.GetCustomerById(viewModel.CustomerId);
 
-        try
+            IEnumerable<Customer> customers = _data.GetCustomers();
+
+            foreach (var c in customers)
+            {
+                viewModel.CustomersInfo.Add(new CustomerInfoViewModel { Id = c.Id, FirstName = c.FirstName, LastName = c.LastName });
+            }
+
+            try
         {
                 Order order = new Order
                 {
