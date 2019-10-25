@@ -13,6 +13,17 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'MySonarCloud'
+    organization: 'jhmohrbachersonarcloud'
+    scannerMode: 'MSBuild'
+    projectKey: 'jhmohrbacher'
+    projectName: 'jhmohrbacherproject1'
+    extraProperties: |
+      sonar.exclusions=**/lib?**
+
 # three different ways to solve the initial problem
 
 # - script:
@@ -47,6 +58,12 @@ steps:
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
+
+- task: SonarCloudAnalyze@1
+  displayName: Run Sonarcloud
+
+- task: SonarCloudPublish@1
+  displayName: Publish sonacloud
 
 - task: DotNetCoreCLI@2
   displayName: dotnet publish + zip
