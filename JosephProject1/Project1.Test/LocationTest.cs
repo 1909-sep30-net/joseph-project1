@@ -69,17 +69,6 @@ namespace Project1.Test
         }
 
         [Fact]
-        public void ValidateOrder_Invalid_Order_Throws_ArgumentException()
-        {
-            Order order = new Order();
-            order.AddProduct(productOrder);
-
-            location.PlaceOrder(order);
-
-            Assert.Throws<ArgumentException>(() => location.ValidateOrder(order));
-        }
-
-        [Fact]
         public void PlaceOrder_Invalid_Order_Throws_ArgumentException()
         {
             Order order = new Order();
