@@ -1,9 +1,5 @@
 ﻿using System;
 using Xunit;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-
 using Project1.BusinessLogic;
 
 namespace Project1.Test

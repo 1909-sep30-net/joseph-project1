@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using Project1.BusinessLogic;
-using Project1.DataAccess;
-using Project1.DataAccess.Entities;
 using Serilog;
 using JosephProject1.App.Models;
 

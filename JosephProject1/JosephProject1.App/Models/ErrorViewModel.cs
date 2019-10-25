@@ -1,5 +1,3 @@
-using System;
-
 namespace JosephProject1.App.Models
 {
     public class ErrorViewModel
