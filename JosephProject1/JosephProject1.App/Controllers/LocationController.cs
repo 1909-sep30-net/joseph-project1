@@ -276,7 +276,6 @@ namespace JosephProject1.App.Controllers
                     CustomerId = customer.Id,
                 };
 
-                List<ProductOrder> productOrders = new List<ProductOrder>();
                 foreach (var item in viewModel.OrderInfo)
                 {
                     if (item.Quantity > 0)
