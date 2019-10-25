@@ -22,7 +22,7 @@ steps:
     projectKey: 'jhmohrbacher'
     projectName: 'jhmohrbacherproject1'
     extraProperties: |
-      sonar.exclusions=**/lib?**
+      sonar.exclusions=**/lib/**
 
 # three different ways to solve the initial problem
 
