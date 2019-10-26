@@ -38,22 +38,33 @@
     <div class="col">
         @if (Model.customers != null && Model.customers.Count() != 0)
         {
-            <table class="table">
-                <tbody>
-                    @foreach (var c in Model.customers)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => c.Id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => c.FullName)
-                            </td>
-                        </tr>
-                    }
-                   
-                </tbody>
-            </table>
+        <table class="table">
+            <caption>Customer Info</caption>
+            <thead>
+                <tr>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model.customers)
+                {
+                    <tr>
+                        <td scope="row">
+                            @Html.DisplayFor(modelItem => c.Id)
+                        </td>
+                        <td scope="row">
+                            @Html.DisplayFor(modelItem => c.FullName)
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
         }
      </div>
 </div>

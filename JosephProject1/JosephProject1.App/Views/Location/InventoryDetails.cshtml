@@ -10,60 +10,58 @@
     <caption>Inventory Info</caption>
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Id)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Sales)
             </th>
             <th></th>
         <tr>
-            <th>
+            <th scope="row">
                 @Html.DisplayFor(model => model.Id)
             </th>
-            <th>
+            <th scope="row">
                 @Html.DisplayFor(model => model.Name)
             </th>
-            <th>
+            <th scope="row">
                 @Html.DisplayFor(model => model.Sales)
             </th>
-            <th></th>
         </tr>
     </thead>
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Inventory.First().Id)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Inventory.First().Name)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Inventory.First().Price)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Inventory.First().Quantity)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Inventory)
         {
             <tr>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
             </tr>

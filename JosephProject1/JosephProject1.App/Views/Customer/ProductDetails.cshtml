@@ -10,48 +10,47 @@
     <caption>Product Info</caption>
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Id)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.LocationId)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.CustomerId)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Total)
             </th>
             <th></th>
         </tr>
         <tr>
-            <th>
+            <th scope="row">
                 @Html.DisplayFor(model => model.Id)
             </th>
-            <th>
+            <th scope="row">
                 @Html.DisplayFor(model => model.LocationId)
             </th>
-            <th>
+            <th scope="row">
                 @Html.DisplayFor(model => model.CustomerId)
             </th>
-            <th>
+            <th scope="row">
                 @Html.DisplayFor(model => model.Total)
             </th>
-            <th></th>
         </tr>
     </thead>
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.ProductOrders.First().Id)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.ProductOrders.First().Name)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.ProductOrders.First().Quantity)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.ProductOrders.First().Total)
             </th>
             <th></th>
@@ -61,16 +60,16 @@
         @foreach (var item in Model.ProductOrders)
         {
             <tr>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Total)
                 </td>
             </tr>

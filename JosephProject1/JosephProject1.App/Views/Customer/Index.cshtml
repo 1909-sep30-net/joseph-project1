@@ -12,38 +12,40 @@
     <caption>Customer Info</caption>
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Id)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.TotalPurchases)
             </th>
-            <th></th>
+            <th scope="col">
+                Options
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelitem => item.FirstName)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.LastName)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.TotalPurchases)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Orders Details", "OrdersDetails", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })

@@ -10,32 +10,34 @@
     <caption>Location Info</caption>
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Id)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Sales)
             </th>
-            <th></th>
+            <th scope="col">
+                Options
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                <td scope="row">
                     @String.Format("{0:c}", item.Sales)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.ActionLink("Place Order", "PlaceOrder", new { id = item.Id }) |
                     @Html.ActionLink("Inventory Details", "InventoryDetails", new { id = item.Id }) |
                     @Html.ActionLink("Orders Details", "OrdersDetails", new { id = item.Id }) |

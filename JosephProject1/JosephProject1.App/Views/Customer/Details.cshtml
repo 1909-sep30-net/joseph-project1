@@ -10,16 +10,16 @@
     <caption>Customer Info</caption>
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayFor(model => model.Id)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayFor(model => model.FirstName)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayFor(model => model.LastName)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayFor(model => model.TotalPurchases)
             </th>
             <th></th>
@@ -27,16 +27,16 @@
     </thead>
     <thead>
         <tr>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Orders.First().Id)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Orders.First().LocationId)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Orders.First().CustomerId)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Orders.First().Total)
             </th>
             <th></th>
@@ -46,16 +46,16 @@
         @foreach (var item in Model.Orders)
         {
             <tr>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.LocationId)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.CustomerId)
                 </td>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Total)
                 </td>
             </tr>
