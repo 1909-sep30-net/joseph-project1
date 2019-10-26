@@ -76,7 +76,15 @@ namespace JosephProject1.App.Controllers
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Product product = _data.GetProductById(id);
+
+            var viewModel = new ProductViewModel
+            {
+                Name = product.Name,
+                Price = product.Price,
+            };
+
+            return View(viewModel);
         }
 
         // POST: Product/Edit/5
@@ -86,8 +94,15 @@ namespace JosephProject1.App.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                Product product = _data.GetProductById(id);
 
+                product.Name = collection["Name"];
+                product.Price = decimal.Parse(collection["Price"]);
+
+                _data.UpdateProduct(product);
+                _data.Save();
+
+                Log.Information("product id {id} edited", id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -109,8 +124,6 @@ namespace JosephProject1.App.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
                 return RedirectToAction(nameof(Index));
             }
             catch

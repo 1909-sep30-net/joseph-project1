@@ -76,6 +76,7 @@ namespace Project1.BusinessLogic
         /// <returns>list of products</returns>
         public IEnumerable<Product> GetProducts(string name = null, int? id = null);
         public Product GetProductById(int id);
+        public void UpdateProduct(Product product);
         public void DeleteProductById(int id);
 
 

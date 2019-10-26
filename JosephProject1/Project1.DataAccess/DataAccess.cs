@@ -255,6 +255,16 @@ namespace Project1.DataAccess
             return Mapper.MapProduct(_context.Products.Find(id));
         }
 
+        public void UpdateProduct(Product product)
+        {
+            Products currentEntity = _context.Products.Find(product.Id);
+
+            Products newEntity = Mapper.MapProduct(product);
+
+            Log.Information("Updated product {Name} {Price}", product.Name, product.Price);
+            _context.Entry(currentEntity).CurrentValues.SetValues(newEntity);
+        }
+
         public void DeleteProductById(int id)
         {
             Products entity = _context.Products.Find(id);
