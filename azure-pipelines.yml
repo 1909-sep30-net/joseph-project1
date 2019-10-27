@@ -23,6 +23,9 @@ steps:
     projectName: 'jhmohrbacherproject1'
     extraProperties: |
       sonar.exclusions=**/lib/**
+      sonar.branch.name=$(Build.SourceBranchName)
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
+      sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
 
 # three different ways to solve the initial problem
 
