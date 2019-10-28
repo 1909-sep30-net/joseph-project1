@@ -23,9 +23,6 @@ steps:
     projectName: 'jhmohrbacherproject1'
     extraProperties: |
       sonar.exclusions=**/lib/**
-      sonar.branch.name=$(Build.SourceBranchName)
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
-      sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
 
 # three different ways to solve the initial problem
 
@@ -54,35 +51,19 @@ steps:
   inputs:
     command: 'test'
     projects: './JosephProject1'
-    arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
-    nobuild: true
-
-- script: |
-    dotnet tool install -g dotnet-reportgenerator-globaltool
-    reportgenerator "-reports:$(Build.SourcesDirectory)/**/coverage.opencover.xml" "-targetdir:$(Build.SourcesDirectory)/CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
-  displayName: Create Code Coverage Report
+    arguments: --configuration $(buildConfiguration) --collect "XPlat Code Coverage"
 
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publish Code Coverage'
+  displayName: Publish code coverage
   inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
-
-
-# - task: PublishCodeCoverageResults@1
-#   displayName: Publish code coverage
-#   inputs:
-#     codeCoverageTool: 'Cobertura'
-#     summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
 
 - task: SonarCloudAnalyze@1
   displayName: Run Sonarcloud
-  continueOnError: false
 
 - task: SonarCloudPublish@1
   displayName: Publish sonacloud
-  continueOnError: false
 
 - task: DotNetCoreCLI@2
   displayName: dotnet publish + zip
