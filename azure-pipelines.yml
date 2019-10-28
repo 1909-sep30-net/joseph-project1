@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
@@ -33,17 +33,11 @@ steps:
   inputs:
     command: 'test'
     projects: './JosephProject1'
-    arguments: --configuration $(buildConfiguration) --collect "XPlat Code Coverage"
+    arguments: --configuration $(buildConfiguration) --collect "Code Coverage"
 
 
 - task: SonarCloudAnalyze@1
   displayName: Run Sonarcloud
-
-- task: PublishCodeCoverageResults@1
-  displayName: Publish code coverage
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
 
 - task: SonarCloudPublish@1
   displayName: Publish sonacloud
