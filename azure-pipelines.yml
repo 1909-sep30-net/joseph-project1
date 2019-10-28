@@ -29,14 +29,12 @@ steps:
   workingDirectory: ./JosephProject1
 
 - task: DotNetCoreCLI@2
-  displayName: dotnet test
   inputs:
     command: 'test'
     projects: './JosephProject1'
-    arguments: --configuration $(buildConfiguration) --collect "Code Coverage"
+    arguments: '--configuration $(buildConfiguration) --collect "Code Coverage"'
 
 - task: SonarCloudAnalyze@1
-  displayName: Run Sonarcloud
 
 - task: DotNetCoreCLI@2
   displayName: dotnet publish + zip
@@ -46,7 +44,6 @@ steps:
     zipAfterPublish: true
 
 - task: SonarCloudPublish@1
-  displayName: Publish sonacloud
 
 - task: AzureRmWebAppDeployment@4
   inputs:
