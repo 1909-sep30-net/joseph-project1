@@ -16,7 +16,7 @@ steps:
 
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'AzureBuild'
+    SonarCloud: 'MySonarCloud'
     organization: 'jhmohrbachersonarcloud'
     scannerMode: 'MSBuild'
     projectKey: 'jhmohrbacher'
@@ -29,21 +29,32 @@ steps:
   workingDirectory: ./JosephProject1
 
 - task: DotNetCoreCLI@2
+  displayName: dotnet test
   inputs:
     command: 'test'
     projects: './JosephProject1'
-    arguments: '--configuration $(buildConfiguration) --collect "Code Coverage"'
+    arguments: --configuration $(buildConfiguration) --collect "XPlat Code Coverage"
+
 
 - task: SonarCloudAnalyze@1
+  displayName: Run Sonarcloud
+
+- task: PublishCodeCoverageResults@1
+  displayName: Publish code coverage
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
+
+- task: SonarCloudPublish@1
+  displayName: Publish sonacloud
 
 - task: DotNetCoreCLI@2
   displayName: dotnet publish + zip
   inputs:
     command: 'publish'
+    arguments: --configuration $(buildConfiguration)
     publishWebProjects: true
     zipAfterPublish: true
-
-- task: SonarCloudPublish@1
 
 - task: AzureRmWebAppDeployment@4
   inputs:
