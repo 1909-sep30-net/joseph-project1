@@ -24,43 +24,25 @@ steps:
     extraProperties: |
       sonar.exclusions=**/lib/**
 
-# three different ways to solve the initial problem
-
-# - script:
-#     cd RestaurantReviews
-#     dotnet build --configuration $(buildConfiguration)
-#   displayName: 'dotnet build $(buildConfiguration)'
-
-# - script: dotnet build RestaurantReviews --configuration $(buildConfiguration)
-#   displayName: 'dotnet build $(buildConfiguration)'
-
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
   workingDirectory: ./JosephProject1
 
-# - script: dotnet test
-#   displayName: dotnet test
-#   workingDirectory: RestaurantReviews
-
-# a task can encapsulate some useful logic so we don't have to
-# write it all out in script step...
-# in this case, this task is both running tests and publishing the results
-# to the build itself
 - task: DotNetCoreCLI@2
   displayName: dotnet test
   inputs:
     command: 'test'
     projects: './JosephProject1'
-    arguments: --configuration $(buildConfiguration) --collect "XPlat Code Coverage"
+    arguments: --configuration $(buildConfiguration) --collect "Code Coverage"
+
+- task: SonarCloudAnalyze@1
+  displayName: Run Sonarcloud
 
 - task: PublishCodeCoverageResults@1
   displayName: Publish code coverage
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
-
-- task: SonarCloudAnalyze@1
-  displayName: Run Sonarcloud
 
 - task: SonarCloudPublish@1
   displayName: Publish sonacloud
