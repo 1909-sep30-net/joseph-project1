@@ -145,14 +145,14 @@ namespace JosephProject1.App.Controllers
         // POST: Customer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, CustomerInfoViewModel viewModel)
         {
             try
             {
                 Customer customer = _data.GetCustomerById(id);
 
-                customer.FirstName = collection["FirstName"];
-                customer.LastName = collection["LastName"];
+                customer.FirstName = viewModel.FirstName;
+                customer.LastName = viewModel.LastName;
 
                 _data.UpdateCustomer(customer);
                 _data.Save();
@@ -186,7 +186,7 @@ namespace JosephProject1.App.Controllers
         // POST: Customer/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, CustomerViewModel viewModel)
         {
             try
             {
